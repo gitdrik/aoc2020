@@ -1,9 +1,5 @@
 ns = open("01.txt") do f
-    ns = []
-    for l in eachline(f)
-        push!(ns, parse(Int, l))
-    end
-    return ns
+    return [parse(Int, l) for l in eachline(f)]
 end
 
 function p1(ns)
