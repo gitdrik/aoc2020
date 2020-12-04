@@ -3,7 +3,7 @@ open("04.txt") do f
          ss->[split(s,[' ','\n']) for s in ss] |>
          ss->[Dict(split.(s,':')) for s in ss]
     req = Set(["byr","iyr","eyr","hgt","hcl","ecl","pid"])
-    p1 = sum([setdiff(req, keys(p)) == Set() for p in ps])
+    println("Part 1: ", sum([setdiff(req, keys(p)) == Set() for p in ps]))
 
     p2 = 0
     for p in ps
@@ -21,7 +21,5 @@ open("04.txt") do f
                   (prod([c in "0123456789" for c in p["pid"]]))
         end
     end
-
-    println("Part 1: ", p1)
     println("Part 2: ", p2)
 end
