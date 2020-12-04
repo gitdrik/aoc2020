@@ -1,19 +1,14 @@
 open("04.txt") do f
-    ps = read(f, String) |> strip |> s->split(s,"\n\n") .|>
-         s -> split(s,[' ','\n']) |> s-> Dict(split.(s,':'))
-    req = Set(["byr","iyr","eyr","hgt","hcl","ecl","pid"])
-    println("Part 1: ", sum([req ⊆ keys(p) for p ∈ ps]))
-    println("Part 2: ", sum([
-        req ⊆ keys(p) &&
-        (parse(Int,p["byr"]) ∈ 1920:2002) &&
-        (parse(Int,p["iyr"]) ∈ 2010:2020) &&
-        (parse(Int,p["eyr"]) ∈ 2020:2030) &&
-        (p["hgt"][end-1:end]=="cm" && (parse(Int,p["hgt"][1:end-2]) ∈ 150:193) ||
-        p["hgt"][end-1:end]=="in" && (parse(Int,p["hgt"][1:end-2]) ∈ 59:76)) &&
-        (length(p["hcl"]) == 7) &&
-        (p["hcl"][1] == '#') &&
-        (prod([c ∈ "0123456789abcdef" for c ∈ p["hcl"][2:7]])) &&
-        (p["ecl"] ∈ ["amb","blu","brn","gry","grn","hzl","oth"]) &&
-        (length(p["pid"]) == 9) &&
-        (prod([c ∈ '0':'9' for c ∈ p["pid"]])) for p ∈ ps]))
+    has(a) = b -> filter(c -> occursin(a,c),b)
+    ps = read(f, String) |> s->split(s,"\n\n")
+    ps |>
+        has("byr") |> has("iyr") |> has("eyr") |> has("hgt") |> has("hcl") |>
+        has("ecl") |> has("pid") |> length |> n->println("Part 1: ",n)
+    ps |>
+        has(r"byr:(19[2-9][0-9]|200[0-2])") |>
+        has(r"iyr:20(1[0-9]|20)") |> has(r"eyr:20(2[0-9]|30)") |>
+        has(r"hgt:(1([5-8][0-9]|9[0-3])cm|(59|6[0-9]|7[0-3])in)") |>
+        has(r"hcl:#([0-9]|[a-f]){6}") |>
+        has(r"ecl:(amb|blu|brn|gry|grn|hzl|oth)") |>
+        has(r"pid:[0-9]{9}") |> length |> n->println("Part 2: ",n)
 end
