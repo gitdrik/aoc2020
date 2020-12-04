@@ -1,7 +1,6 @@
 open("04.txt") do f
-    ps = read(f, String) |> strip |> s->split(s,"\n\n") |>
-         ss->[split(s,[' ','\n']) for s ∈ ss] |>
-         ss->[Dict(split.(s,':')) for s ∈ ss]
+    ps = read(f, String) |> strip |> s->split(s,"\n\n") .|>
+         s -> split(s,[' ','\n']) |> s-> Dict(split.(s,':'))
     req = Set(["byr","iyr","eyr","hgt","hcl","ecl","pid"])
     println("Part 1: ", sum([req ⊆ keys(p) for p ∈ ps]))
     p2 = 0
