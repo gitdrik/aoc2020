@@ -4,7 +4,6 @@ open("04.txt") do f
          ss->[Dict(split.(s,':')) for s ∈ ss]
     req = Set(["byr","iyr","eyr","hgt","hcl","ecl","pid"])
     println("Part 1: ", sum([req ⊆ keys(p) for p ∈ ps]))
-
     p2 = 0
     for p ∈ ps
         if req ⊆ keys(p)
