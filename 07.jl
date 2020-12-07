@@ -11,9 +11,18 @@ open("07.txt") do f
         end
     end
 
-    contains_shiny_gold(T, bag) =
-        "shiny gold" ∈ keys(T[bag]) ||
-        any([contains_shiny_gold(T,b) for b ∈ keys(T[bag])])
+    function contains_shiny_gold(T, bag)
+        if "shiny gold" ∈ keys(T[bag])
+            return true
+        else
+            for b ∈ keys(T[bag])
+                if contains_shiny_gold(T,b)
+                    return true
+                end
+            end
+        end
+        return false
+    end
 
     bags_in(T, bag) =
         isempty(T[bag]) ? 0 :
