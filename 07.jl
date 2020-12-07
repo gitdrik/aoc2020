@@ -1,12 +1,12 @@
 open("07.txt") do f
     T = Dict()
     for l ∈ eachline(f)
-        out, inns = split(l, " bags contain ")
-        T[out] = Dict()
+        bag, inns = split(l, " bags contain ")
+        T[bag] = Dict()
         if inns != "no other bags."
             for i in split(inns, ", ")
                 ss = split(i, ' ')
-                T[out][string(ss[2],' ',ss[3])] = parse(Int,ss[1])
+                T[bag][string(ss[2],' ',ss[3])] = parse(Int,ss[1])
             end
         end
     end
@@ -21,5 +21,4 @@ open("07.txt") do f
 
     println("Part 1: ", sum([contains_shiny_gold(T, bag) for bag in keys(T)]))
     println("Part 2: ", bags_in(T, "shiny gold"))
-
 end
