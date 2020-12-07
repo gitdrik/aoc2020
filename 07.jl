@@ -1,5 +1,5 @@
 open("07.txt") do f
-    T = Dict()
+    T::Dict{String,Dict{String,Int}} = Dict()
     for l ∈ eachline(f)
         bag, inns = split(l, " bags contain ")
         T[bag] = Dict()
