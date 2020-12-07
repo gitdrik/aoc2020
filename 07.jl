@@ -33,7 +33,7 @@ open("07.txt") do f
         if keys(T[bag]) == Set()
             return 0
         else
-            return sum( [bags(T,b) for b in keys(T[bag])]) +
+            return sum( [bags(T,b)*T[bag][b] for b in keys(T[bag])]) +
                    sum( values(T[bag]))
         end
     end
