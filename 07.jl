@@ -22,21 +22,19 @@ open("07.txt") do f
             if keys(T[bag]) == Set()
                 return false
             else
-                return sum([containsShinyGold(T,b) for b in keys(T[bag])])>0
+                return any([containsShinyGold(T,b) for b in keys(T[bag])])
             end
         end
     end
     println("Part 1: ", sum([containsShinyGold(T, bag) for bag in keys(T)]))
-    #14
 
     function bags(T, bag)
         if keys(T[bag]) == Set()
             return 0
         else
-            return sum( [bags(T,b)*T[bag][b] for b in keys(T[bag])]) +
-                   sum( values(T[bag]))
+            return sum([bags(T,b)*T[bag][b] for b in keys(T[bag])]) +
+                   sum(values(T[bag]))
         end
     end
-    println("Part 2: ", bags(T, "shiny gold")) #244
-
+    println("Part 2: ", bags(T, "shiny gold")) #!244
 end
