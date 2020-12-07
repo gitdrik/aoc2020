@@ -12,7 +12,7 @@ open("07.txt") do f
     end
 
     contains_shiny_gold(T, bag) =
-        "shiny gold" in keys(T[bag]) ||
+        "shiny gold" ∈ keys(T[bag]) ||
         any([contains_shiny_gold(T,b) for b ∈ keys(T[bag])])
 
     bags_in(T, bag) =
