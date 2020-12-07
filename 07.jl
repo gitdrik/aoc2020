@@ -14,11 +14,10 @@ open("07.txt") do f
     function contains_shiny_gold(T, bag)
         if "shiny gold" ∈ keys(T[bag])
             return true
-        else
-            for b ∈ keys(T[bag])
-                if contains_shiny_gold(T,b)
-                    return true
-                end
+        end
+        for b ∈ keys(T[bag])
+            if contains_shiny_gold(T,b)
+                return true
             end
         end
         return false
