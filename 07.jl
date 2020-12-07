@@ -15,26 +15,26 @@ open("07.txt") do f
         end
     end
 
-    function containsShinyGold(T, bag)
+    function contains_shiny_gold(T, bag)
         if "shiny gold" in keys(T[bag])
             return true
         else
-            if keys(T[bag]) == Set()
+            if isempty(T[bag])
                 return false
             else
-                return any([containsShinyGold(T,b) for b in keys(T[bag])])
+                return any([contains_shiny_gold(T,b) for b in keys(T[bag])])
             end
         end
     end
-    println("Part 1: ", sum([containsShinyGold(T, bag) for bag in keys(T)]))
+    println("Part 1: ", sum([contains_shiny_gold(T, bag) for bag in keys(T)]))
 
-    function bags(T, bag)
-        if keys(T[bag]) == Set()
+    function bags_in(T, bag)
+        if isempty(T[bag])
             return 0
         else
-            return sum([bags(T,b)*T[bag][b] for b in keys(T[bag])]) +
+            return sum([bags_in(T,b)*T[bag][b] for b in keys(T[bag])]) +
                    sum(values(T[bag]))
         end
     end
-    println("Part 2: ", bags(T, "shiny gold")) #!244
+    println("Part 2: ", bags_in(T, "shiny gold")) #!244
 end
