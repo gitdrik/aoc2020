@@ -5,10 +5,10 @@ open("08.txt") do f
         push!(P, [ins, parse(Int, ns)])
     end
 
-    seen::Set{Int} = Set()
+    seen = falses(length(P))
     i, acc = 1, 0
-    while !(i ∈ seen)
-        push!(seen, i)
+    while !seen[i]
+        seen[i] = true
         inc = 1
         if P[i][1] == "acc"
             acc += P[i][2]
@@ -29,10 +29,10 @@ open("08.txt") do f
             continue
         end
 
-        seen = Set()
+        seen = falses(length(P))
         i, acc = 1, 0
-        while !(i ∈ seen) && i ∈ 1:length(P)
-            push!(seen, i)
+        while i ∈ 1:length(P) && !seen[i]
+            seen[i] = true
             inc = 1
             if P[i][1] == "acc"
                 acc += P[i][2]
