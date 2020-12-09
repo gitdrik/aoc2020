@@ -3,7 +3,7 @@ open("09.txt") do f
     p1, p2 = 0, 0
     for i ∈ 26:length(ns)
         valid = false
-        for j ∈ i-25:i-1, k ∈ j+1:i-1
+        for j ∈ i-25:i-2, k ∈ j+1:i-1
             if ns[i] == ns[j]+ns[k]
                 valid = true
                 break
