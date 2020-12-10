@@ -28,5 +28,5 @@ open("09.txt") do f
         end
     end
     println("Part 1: ", p1)
-    println("Part 1: ", p2)
+    println("Part 2: ", p2)
 end
