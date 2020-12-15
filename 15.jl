@@ -10,4 +10,4 @@ function run(n)
     return say
 end
 println("Part 1: ",run(2020))
-println("Part 1: ",run(30000000))
+println("Part 2: ",run(30000000))
