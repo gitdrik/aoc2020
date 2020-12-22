@@ -1,5 +1,4 @@
 using StatsBase
-
 open("20.txt") do f
     tiles::Dict{Int,BitArray{2}} = Dict()
     while !eof(f)
@@ -17,8 +16,9 @@ open("20.txt") do f
         edges = [t[1,1:10], t[10,1:10], t[1:10,1], t[1:10,10]]
         push!(alledges, [edges; reverse.(edges)]...)
     end
-    # print(length(Set(alledges))) The number of unique edges (624) is only
-    # consistent with a 12x12 grid of unique outer edges and inner-edge-pairs.
+    # println(length(Set(alledges)))
+    # -> The number of unique edges (624) is only consistent
+    # with a 12x12 grid of unique outer edges and unique inner-edge-pairs.
 
     outeredges = Set([e for (e, n) ∈ countmap(alledges) if n == 1])
 
@@ -47,38 +47,26 @@ open("20.txt") do f
     # rest of first row
     for i ∈ 2:12
         redge = tiles[idmap[1,i-1]][1:10,10]
-        for id ∈ remainingtiles
-            t = tiles[id]
-            for tp ∈ perms(t)
-                if tp[1:10,1] == redge
-                    tiles[id] = tp
-                    idmap[1,i] = id
-                    break
-                end
-            end
-            if idmap[1,i] == id
+        for id ∈ remainingtiles, tp ∈ perms(tiles[id])
+            if tp[1:10,1] == redge
+                tiles[id] = tp
+                idmap[1,i] = id
+                delete!(remainingtiles, idmap[1,i])
                 break
             end
         end
-        delete!(remainingtiles, idmap[1,i])
     end
     #rest of map
     for i ∈ 2:12, j ∈ 1:12
         dedge = tiles[idmap[i-1,j]][10,1:10]
-        for id ∈ remainingtiles
-            t = tiles[id]
-            for tp ∈ perms(t)
-                if tp[1,1:10] == dedge
-                    tiles[id] = tp
-                    idmap[i,j] = id
-                    break
-                end
-            end
-            if idmap[i,j] == id
+        for id ∈ remainingtiles, tp ∈ perms(tiles[id])
+            if tp[1,1:10] == dedge
+                tiles[id] = tp
+                idmap[i,j] = id
+                delete!(remainingtiles, idmap[i,j])
                 break
             end
         end
-        delete!(remainingtiles, idmap[i,j])
     end
     # cut away the edges
     seawithmonsters = BitArray(undef,(96,96))
@@ -86,7 +74,6 @@ open("20.txt") do f
         xr, yr = i*8-7:i*8, j*8-7:j*8
         seawithmonsters[xr, yr] = tiles[idmap[i,j]][2:9,2:9]
     end
-
     monster = BitArray([0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0;
                         1 0 0 0 0 1 1 0 0 0 0 1 1 0 0 0 0 1 1 1;
                         0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0])
