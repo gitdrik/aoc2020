@@ -8,8 +8,7 @@ open("22.txt") do f
             ([ns1[2:end];[ns1[1],ns2[1]]], ns2[2:end]) :
             (ns1[2:end], [ns2[2:end];[ns2[1],ns1[1]]])
     end
-    p1 = length(ns2) == 0 ? score(ns1) : score(ns2)
-    println("Part 1: ", p1)
+    println("Part 1: ", length(ns2) == 0 ? score(ns1) : score(ns2))
 
     function rcombat(ns1, ns2)
         hist = Set{Tuple{Int, Int}}()
