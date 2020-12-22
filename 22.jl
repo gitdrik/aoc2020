@@ -27,10 +27,7 @@ open("22.txt") do f
                 n1 > n2 ? 1 : 2
             ns1, ns2 = win == 1 ? ([ns1;[n1,n2]], ns2) : (ns1, [ns2;[n2,n1]])
         end
-        win, score = length(ns2) == 0 ?
-            (1, score(ns1)) :
-            (2, score(ns2))
-        return win, score
+        return length(ns2) == 0 ? (1, score(ns1)) : (2, score(ns2))
     end
     ns1, ns2 = parse.(Int, ls[2:26]), parse.(Int, ls[29:53])
     println("Part 2: ", rcombat(ns1,ns2)[2])
