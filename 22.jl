@@ -1,5 +1,6 @@
 open("22.txt") do f
     ls = readlines(f)
+    score(ns) = sum(ns .* collect(length(ns):-1:1))
 
     ns1, ns2 = parse.(Int, ls[2:26]), parse.(Int, ls[29:53])
     while length(ns1) > 0 && length(ns2) > 0
@@ -7,14 +8,10 @@ open("22.txt") do f
             ([ns1[2:end];[ns1[1],ns2[1]]], ns2[2:end]) :
             (ns1[2:end], [ns2[2:end];[ns2[1],ns1[1]]])
     end
-    p1 = length(ns2) == 0 ?
-        sum(ns1 .* collect(length(ns1):-1:1)) :
-        sum(ns2 .* collect(length(ns2):-1:1))
+    p1 = length(ns2) == 0 ? score(ns1) : score(ns2)
     println("Part 1: ", p1)
 
     function rcombat(ns1, ns2)
-        # score is also a workable hash function for the state
-        score(ns) = sum(ns .* collect(length(ns):-1:1))
         hist = Set{Tuple{Int, Int}}()
         while length(ns1) > 0 && length(ns2) > 0
             if (score(ns1),score(ns2)) ∈ hist
