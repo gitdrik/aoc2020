@@ -12,7 +12,7 @@ open("20.txt") do f
     end
 
     alledges = []
-    for (id, t) ∈ tiles
+    for (_,t) ∈ tiles
         edges = [t[1,1:10], t[10,1:10], t[1:10,1], t[1:10,10]]
         push!(alledges, [edges; reverse.(edges)]...)
     end
