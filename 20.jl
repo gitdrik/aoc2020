@@ -17,7 +17,7 @@ open("20.txt") do f
         push!(alledges, [edges; reverse.(edges)]...)
     end
     # println(length(Set(alledges)))
-    # -> The number of unique edges (624) is only consistent
+    # -> The number of unique edges (624) is for 144 tiles consistent
     # with a 12x12 grid of unique outer edges and unique inner-edge-pairs.
 
     outeredges = Set([e for (e, n) ∈ countmap(alledges) if n == 1])
