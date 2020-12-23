@@ -1,6 +1,6 @@
 function p1()
     ns = [1,5,8,9,3,7,4,6,2]
-    for i in 1:100
+    for i ∈ 1:100
         dl = mod(ns[1]-2,9)+1
         while dl ∈ ns[2:4]
             dl = mod(dl-2,9)+1
@@ -18,7 +18,7 @@ function p2()
     # rephrase as forward linked list, with "label" as the list position.
     ll = [[5,10,7,6,8,2,4,9,3];collect(11:1000000);[1]]
     c0, llen = 1, length(ll)
-    for n in 1:10000000
+    for n ∈ 1:10000000
         # pick three
         c1 = ll[c0]
         c2 = ll[c1]
